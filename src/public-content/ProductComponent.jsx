@@ -115,12 +115,12 @@ class ProductComponent extends Component {
                         {productList}<br/><br/>
                     </div>
                 </div>
-                <div  className={this.state.products.length == 0 && !this.state.userName ? 'row show' : 'hide'}>
+                <div  className={this.state.products.length === 0 && !this.state.userName ? 'row show' : 'hide'}>
                     <div className="col-12 text-center text-success">
                         <h3>Sigin to add products</h3><br />
                     </div>
                 </div>
-                <div  className={this.state.products.length == 0 && this.state.userName ? 'row show' : 'hide'}>
+                <div  className={this.state.products.length === 0 && this.state.userName ? 'row show' : 'hide'}>
                     <div className="col-12 text-center text-success">
                         <h3>Add products</h3><br />
                     </div>

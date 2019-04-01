@@ -25,13 +25,13 @@ class SigninComponent extends Component {
 
     fieldChange(event, fieldName) {
         var val = event.target.value;
-        if(fieldName == 'email') {
+        if(fieldName === 'email') {
             this.setState({
                 email : val
             });
         }
 
-        if(fieldName == 'pwd') {
+        if(fieldName === 'pwd') {
             this.setState({
                 password : val
             });

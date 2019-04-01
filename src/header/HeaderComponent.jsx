@@ -98,7 +98,7 @@ class HeaderComponent extends Component {
     changeImage(event) {
         var image = event.target.files[0];
         console.log(image);
-        if(image.name.indexOf('.png') != -1 || image.name.indexOf('.jpg') != -1 || image.name.indexOf('.jpeg') != -1 || image.name.indexOf('.PNG') != -1 || image.name.indexOf('.JPG') != -1 || image.name.indexOf('.JPEG') != -1) { 
+        if(image.name.indexOf('.png') !== -1 || image.name.indexOf('.jpg') !== -1 || image.name.indexOf('.jpeg') !== -1 || image.name.indexOf('.PNG') !== -1 || image.name.indexOf('.JPG') !== -1 || image.name.indexOf('.JPEG') !== -1) { 
             this.setState({
                 viewImage: URL.createObjectURL(image),
                 imageData: image
@@ -110,19 +110,19 @@ class HeaderComponent extends Component {
 
     fieldChange(event, fieldName) {
         var val = event.target.value;
-        if(fieldName == 'cost') {
+        if(fieldName === 'cost') {
             this.setState({
                 cost : val
             });
         }
 
-        if(fieldName == 'desc') {
+        if(fieldName === 'desc') {
             this.setState({
                 description : val
             });
         }
 
-        if(fieldName == 'name') {
+        if(fieldName === 'name') {
             this.setState({
                 name : val
             });
@@ -197,7 +197,7 @@ class HeaderComponent extends Component {
                     }
                 });
             }).catch((error) => {
-                if (error.response.status == '403') {
+                if (error.response.status === '403') {
                     swal({
                         title: "Error",
                         text: "You should login",

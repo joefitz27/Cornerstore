@@ -30,7 +30,7 @@ class ResgisterComponent extends Component {
 
     fieldChange(event, fieldName) {
         var val = event.target.value;
-        if(fieldName == 'email') {
+        if(fieldName === 'email') {
             this.setState({
                 email : val
             });
@@ -38,13 +38,13 @@ class ResgisterComponent extends Component {
             this.checkEmail(val);
         }
 
-        if(fieldName == 'pwd') {
+        if(fieldName === 'pwd') {
             this.setState({
                 password : val
             });
         }
 
-        if(fieldName == 'name') {
+        if(fieldName === 'name') {
             this.setState({
                 name : val
             });
