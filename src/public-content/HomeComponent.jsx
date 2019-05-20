@@ -63,7 +63,7 @@ class HomeComponent extends Component {
             <div className="container">
                 <div className="col-lg-12">
                     <div className="text-center">
-                        <img src="./images/title.JPG"/>
+                        <img src="https://cornerstore-api.herokuapp.com/title.jpg" width="280px"/>
                     </div>
                 </div>
                 <div className="col-lg-12 text-center">
