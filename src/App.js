@@ -8,6 +8,9 @@ import ResgisterComponent from './Signin-Register/ResgisterComponent';
 import HomeComponent from './public-content/HomeComponent';
 import ProductComponent from './public-content/ProductComponent';
 import UserComponent from './admin-content/UserComponent';
+import CategoryComopnent from './admin-content/CategoryComopnent';
+import StoreComponent from './public-content/StoreComponent';
+import StoreListComponent from './public-content/StoreListComponent';
 
 class App extends Component {
   render() {
@@ -21,6 +24,9 @@ class App extends Component {
             <Route path="/register" component={ResgisterComponent} />
             <Route path="/admin-sign-in" component={AdminSigninComponent} />
             <Route path="/admin-view" component={UserComponent} />
+            <Route path="/category" component={CategoryComopnent} />
+            <Route path="/store" component={StoreComponent} />
+            <Route path="/stores" component={StoreListComponent} />
           </Switch>
         </LayoutComponent>
       </BrowserRouter>

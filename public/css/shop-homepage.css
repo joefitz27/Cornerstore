@@ -9,13 +9,17 @@ body {
   overflow-x:hidden;
 }
 
+.bg-yellow {
+  background-color: #e8c905;
+}
+
 .bg-clr { 
   height : 90vh !important;
-  background-color : #17a2b8 !important;
+  background-color : #e8c905 !important;
 }
 
 .bg-clr-prd {
-  background-color : #17a2b8 !important;
+  background-color : #e8c905 !important;
 }
 
 .show {
@@ -28,16 +32,16 @@ body {
 
 .bg-sign-in {
   height : 100vh !important;
-  background-color : #17a2b8 !important;
+  background-color : #e8c905 !important;
 }
 
 .bg-input {
-  background-color : #17a2b8 !important;
+  background-color : #e8c905 !important;
   border: 1px solid black !important;
 }
 
 .err-input-bg {
-  background-color : #17a2b8 !important;
+  background-color : #e8c905 !important;
   border: 1px solid red !important;
 }
 
@@ -60,3 +64,9 @@ body {
 .error-input {
   border: 1px solid red;
 }
+
+.text-white {
+  color: white !important;
+}
+
+.mouse-pointer {cursor: pointer;}

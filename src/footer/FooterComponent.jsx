@@ -19,7 +19,7 @@ class FooterComponent extends Component {
     }
 
     render() {
-        return <footer className={this.state.isShow ? 'py-5 bg-info show' : 'hide'}>
+        return <footer className={this.state.isShow ? 'py-5 bg-yellow show' : 'hide'}>
             <div className="container">
                 <p className="m-0 text-center text-white">Copyright &copy; Cornerstore 2019</p>
             </div>

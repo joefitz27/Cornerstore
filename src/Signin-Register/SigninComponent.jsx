@@ -91,11 +91,11 @@ class SigninComponent extends Component {
                             <div className="panel-body text-center">
                                 <form action="/action_page.php">
                                     <div className="form-group">
-                                        <label for="email">Email</label>
+                                        <label htmlFor="email">Email</label>
                                         <input type="email" className={!this.state.errEmail ? 'form-control bg-input' : 'form-control err-input-bg'} id="email" onChange={(e)=>this.fieldChange(e, 'email')}/>
                                     </div>
                                     <div className="form-group">
-                                        <label for="pwd">Password</label>
+                                        <label htmlFor="pwd">Password</label>
                                         <input type="password" className={!this.state.errPwd ? 'form-control bg-input' : 'form-control err-input-bg'} id="pwd"  onChange={(e)=>this.fieldChange(e, 'pwd')}/>
                                     </div>
                                     <button type="button" className="btn btn-default" style={{border : '1px solid black'}} onClick={()=>this.signIn()}>Sign In</button><br/><br/>

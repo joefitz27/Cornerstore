@@ -13,14 +13,19 @@ class ResgisterComponent extends Component {
         super(props);
 
         this.state = {
-            email : '',
-            errEmail : false,
-            password : '',
-            errPwd : false,
-            name : '',
-            errName : false,
-            isRegistred : false,
-            isEmailExist : false
+            email: '',
+            errEmail: false,
+            password: '',
+            errPwd: false,
+            name: '',
+            errName: false,
+            isRegistred: false,
+            isEmailExist: false,
+            storeName: '',
+            errStoreName: false,
+            storeAddress: '',
+            errStoreAddress: false
+
         }
     }
 
@@ -47,6 +52,18 @@ class ResgisterComponent extends Component {
         if(fieldName === 'name') {
             this.setState({
                 name : val
+            });
+        }
+
+        if(fieldName === 'storeName') {
+            this.setState({
+                storeName: val
+            });
+        }
+
+        if(fieldName === 'storeAddress') {
+            this.setState({
+                storeAddress: val
             });
         }
     }
@@ -94,25 +111,35 @@ class ResgisterComponent extends Component {
             });
         }
 
-        if(this.state.name && this.state.email && this.state.password && !this.state.isEmailExist) {
+        if(!this.state.storeName) {
+            this.setState({
+                errStoreName : true
+            });
+        } else {
+            this.setState({
+                errStoreName : false
+            });
+        }
+
+        if(!this.state.storeAddress) {
+            this.setState({
+                errStoreAddress : true
+            });
+        } else {
+            this.setState({
+                errStoreAddress : false
+            });
+        }
+
+        if(this.state.name && this.state.email && this.state.password && !this.state.isEmailExist && this.state.storeName && this.state.storeAddress) {
             var data = {
                 name : this.state.name,
                 email : this.state.email,
                 password : this.state.password
             }
+
             axios.post(url.BASE_URL + 'user/create', data).then((response)=> {
-                swal({
-                    title: "Registered",
-                    text: "Successfully Registered",
-                    icon: "success"
-                }).then(willDelete => {
-                    if (willDelete) {
-                        this.setState({
-                            isRegistred : true
-                        });
-                    }
-                });
-                
+                this.createStore(response.data.id);
             }).catch((error)=> {
                 console.log(error);
                 swal({
@@ -122,6 +149,27 @@ class ResgisterComponent extends Component {
                 });
             });
         }
+    }
+
+    createStore(userId) {
+        var storeData = {
+            user_id : userId,
+            store_name : this.state.storeName,
+            store_address : this.state.storeAddress
+        }
+        axios.post(url.BASE_URL + 'store/create', storeData).then((resp)=> {
+            swal({
+                title: "Registered",
+                text: "Successfully Registered",
+                icon: "success"
+            }).then(willDelete => {
+                if (willDelete) {
+                    this.setState({
+                        isRegistred : true
+                    });
+                }
+            });
+        });
     }
 
     render() {
@@ -141,11 +189,19 @@ class ResgisterComponent extends Component {
                         <div className="panel-body text-center">
                             <form>
                                 <div className="form-group">
-                                    <label for="name">Name</label>
+                                    <label htmlFor="name">Name</label>
                                     <input type="text" className={!this.state.errName ? 'form-control bg-input' : 'form-control err-input-bg'} onChange={(e)=>this.fieldChange(e, 'name')} id="name"/>
                                 </div>
                                 <div className="form-group">
-                                    <label for="email">Email</label>
+                                    <label htmlFor="storeName">Store Name</label>
+                                    <input type="text" className={!this.state.errStoreName ? 'form-control bg-input' : 'form-control err-input-bg'} onChange={(e)=>this.fieldChange(e, 'storeName')} id="storeName"/>
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="storeAddress">Store Address</label>
+                                    <input type="text" className={!this.state.errStoreAddress ? 'form-control bg-input' : 'form-control err-input-bg'} onChange={(e)=>this.fieldChange(e, 'storeAddress')} id="storeAddress"/>
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="email">Email</label>
                                     <input type="email" className={!this.state.errEmail ? 'form-control bg-input' : 'form-control err-input-bg'} onChange={(e)=>this.fieldChange(e, 'email')} id="email" />
                                     <span className={this.state.isEmailExist ? 'text-danger show' : 'hide'}>This email already used</span>
                                 </div>

@@ -17,16 +17,33 @@ class ProductComponent extends Component {
         this.state = {
             searchBox : localStorage.getItem('searchText'),
             products : [],
+            storeName : '',
+            storeAddress : '',
+            userInfo : JSON.parse(localStorage.getItem('info')),
             userName : localStorage.getItem('info') ? JSON.parse(localStorage.getItem('info')).name : ''
         }
     }
 
     componentWillMount() {
+        if(this.state.userInfo) {
+            this.userStoreDetails();
+        }
         if(this.state.searchBox) {
             this.searchByWord();
         } else {
             this.searchAll();
         }
+    }
+
+    userStoreDetails() {
+        axios.get(url.BASE_URL + 'store/get/user/' + this.state.userInfo.id).then((response) => {
+            this.setState({
+                storeName: response.data[0].store_name,
+                storeAddress: response.data[0].store_address
+            });
+        }).catch((error) => {
+            console.log(error);
+        });
     }
 
     componentDidMount() {
@@ -57,8 +74,15 @@ class ProductComponent extends Component {
         }
     }
 
+    enterPress(event) {
+        if(event.key === 'Enter'){
+            this.search();
+          }
+    }
+
     searchByWord() {
         axios.get(url.BASE_URL + 'product/search/' + this.state.searchBox).then((response) => {
+            console.log(response.data);
             this.setState({
                 products: response.data
             });
@@ -69,6 +93,7 @@ class ProductComponent extends Component {
 
     searchAll() {
         axios.get(url.BASE_URL + 'product/all').then((response) => {
+            console.log(response.data);
             this.setState({
                 products: response.data
             });
@@ -77,32 +102,38 @@ class ProductComponent extends Component {
         });
     }
 
+    goToStore(storeId) {
+        localStorage.setItem('storeId', storeId);
+        localStorage.setItem('productPage', 'prductPage');
+        window.location.href = '/store';
+    }
+
 
     render() {
         let productList = this.state.products.map((data, index) => {
             var imageUrl = url.IMAGE_URL + data.product_id + '.jpg';
             return <div className="col-lg-3 col-md-6 mb-4" key={index}>
                 <div className="card h-100">
-                    <a href="javascript:void(0);" style={{'height' : '120px'}}><img className="card-img-top" height="110%" src={imageUrl} alt="" /></a>
+                    <a href="javascript:void(0);" style={{'height' : '170px'}}><img className="card-img-top" height="110%" src={imageUrl} alt="" /></a>
                     <div className="card-body">
                         <h6 className="card-title">
-                            <a href="javascript:void(0);">Name: {data.name}</a>
+                            <a href="javascript:void(0);">{data.description}</a>
                         </h6>
-                        <p className="card-text">{data.description}</p>
-                        <h6>Cost: {data.cost}</h6>
+                        <span>${data.cost}</span>
+                        <p><a href="javascript:void(0);" onClick={()=>this.goToStore(data.store_id)}>{data.store_name}</a></p>
                     </div>
                 </div>
             </div>
         })
 
         return <div>
-            <div className="bg-clr-prd"><br /><br /><br />
+            <div className="bg-clr-prd"><br /><br /><br /><br />
                 <div className="row">
                     <div className="col-lg-4 col-md-4 mb-4 text-center">
-                        <h4 className={this.state.userName ? 'show' : 'hide'}>{this.state.userName}'s Market</h4>
+                        <h6 className={this.state.userName ? 'show' : 'hide'}>{this.state.storeName}<br/>{this.state.storeAddress}</h6>
                     </div>
                     <div className="col-lg-4 col-md-4 mb-4 text-left">
-                        <input type="text" name="search" className="form-control" value={this.state.searchBox} onChange={(e)=>this.fieldChange(e)}/>
+                        <input type="text" name="search" className="form-control" value={this.state.searchBox} onChange={(e)=>this.fieldChange(e)} onKeyPress={(e)=>this.enterPress(e)}/>
                     </div>
                     <div className="col-lg-4 col-md-4 mb-4 text-left">
                         <button type="button" className="btn btn-md btn-danger" onClick={() => this.search()}>Search</button>
@@ -127,7 +158,6 @@ class ProductComponent extends Component {
                 </div>
             </div>
         </div>
-
     };
 }
 

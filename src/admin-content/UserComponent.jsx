@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import swal from 'sweetalert';
-import $ from "jquery";
 
 import * as url from '../baseUrl';
 
@@ -112,6 +112,8 @@ class UserComponent extends Component {
             return <tr key={index}>
                 <td>{data.name}</td>
                 <td>{data.email}</td>
+                <td>{data.store_name}</td>
+                <td>{data.store_address}</td>
                 <td><a className={data.is_admin ? 'btn btn-sm btn-warning' : 'btn btn-sm btn-info'}>{data.is_admin ? 'YES' : 'NO'}</a></td>
                 <td><a className={data.is_admin ? 'btn btn-sm btn-success' : 'btn btn-sm btn-danger'} onClick={()=>this.roleChange(data)}>{!data.is_admin ? 'Mark as admin' : 'Mark as user'}</a></td>
                 <td><i className="fa fa-trash text-danger" aria-hidden="true" onClick={()=>this.removeUser(data)}></i></td>
@@ -119,15 +121,25 @@ class UserComponent extends Component {
         })
 
         return <div className="admin-height">
-            <div className="container">
+            <div className="container"><br/><br/><br/><br/>
                 <div className="row">
-                    <div className="col-12"><br/><br/><br/><br/>
+                    <div className="col-10">
+                        <h5>Users</h5>
+                    </div>
+                    <div className="col-2">
+                        <Link to='/category' className="btn-success btn-md btn">Category</Link>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col-12"><br/>
                         <div class="table-responsive">
                             <table class="table">
                                 <thead>
                                     <tr>
                                         <th>Name</th>
                                         <th>Email</th>
+                                        <th>Store Name</th>
+                                        <th>Store Address</th>
                                         <th>Is Admin</th>
                                         <th></th>
                                         <th></th>

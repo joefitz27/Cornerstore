@@ -49,7 +49,12 @@ class HeaderComponent extends Component {
             cost : '',
             errCost : false,
             imageData : '',
-            errImg : false
+            errImg : false,
+            categories: [],
+            categoryVal: '',
+            catErr: false,
+            storeId: '',
+            isRedirectToStore: false
         }
 
         this.openModal = this.openModal.bind(this);
@@ -58,6 +63,11 @@ class HeaderComponent extends Component {
     }
 
     componentWillMount() {
+        if(this.state.isSignIn) {
+            this.userStoreDetails();
+            this.loadCategory();
+        }
+
         if(localStorage.getItem('hide')) {
             this.setState({
                 isShow : false
@@ -67,6 +77,26 @@ class HeaderComponent extends Component {
                 isShow : true
             });
         }
+    }
+
+    userStoreDetails() {
+        axios.get(url.BASE_URL + 'store/get/user/' + this.state.usrInfo.id).then((response) => {
+            this.setState({
+                storeId: response.data[0].store_id
+            });
+        }).catch((error) => {
+            console.log(error);
+        });
+    }
+
+    loadCategory() {
+        axios.get(url.BASE_URL + 'category/all').then((response) => {
+            this.setState({
+                categories: response.data
+            });
+        }).catch((error) => {
+            console.log(error);
+        });
     }
 
     openModal() {
@@ -170,12 +200,23 @@ class HeaderComponent extends Component {
             });
         }
 
-        if(this.state.name && this.state.description && this.state.cost && this.state.imageData) {
+        if(!this.state.categoryVal) {
+            this.setState({
+                catErr : true
+            });
+        } else {
+            this.setState({
+                catErr : false
+            });
+        }
+
+        if(this.state.name && this.state.description && this.state.cost && this.state.imageData && this.state.categoryVal) {
             var data = {
                 name : this.state.name,
                 description : this.state.description,
                 cost : this.state.cost,
-                created_by : this.state.usrInfo.id
+                created_by : this.state.usrInfo.id,
+                category_id : this.state.categoryVal
             }
 
             axios({
@@ -229,11 +270,27 @@ class HeaderComponent extends Component {
         }
     }
 
+    dropdownChange(e) {
+        this.setState({
+            categoryVal : e.target.value
+        });
+    }
+
+    goToStorePage() {
+        localStorage.setItem('storeId', this.state.storeId);
+        window.location.href = '/store';
+    }
+
     render() {
+
+        let categryList = this.state.categories.map((data, index) => {
+            return <option value={data.category_id} key={index}>{data.category_name}</option>;
+        });
+
         return <div>
-        <nav id="navBar" className="navbar navbar-expand-lg navbar-dark bg-info fixed-top">
+        <nav id="navBar" className="navbar navbar-expand-lg navbar-dark bg-yellow fixed-top">
             <div className="container">
-                <Link className="navbar-brand" to="/"><b>Cornerstore</b></Link>
+                <Link className="navbar-brand" to="/"><img src="./images/logo.JPG" height="60px"/></Link>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
@@ -247,6 +304,9 @@ class HeaderComponent extends Component {
                         </li>
                         <li className={(this.state.isSignIn && !this.state.isAdmin) ? 'nav-item show' : 'nav-item hide'}>
                             <a href="javascript:void(0);" className="nav-link" onClick={this.openModal}><b><i className="fa fa-plus" aria-hidden="true"></i> Add</b></a>
+                        </li>
+                        <li className={(this.state.isSignIn && !this.state.isAdmin) ? 'nav-item show' : 'nav-item hide'}>
+                            <a href="javascript:void(0);" className="nav-link" onClick={() => this.goToStorePage()}><b> My Store</b></a>
                         </li>
                         <li className={(this.state.isSignIn || this.state.isAdmin) ? 'nav-item show' : 'nav-item hide'}>
                             <a href="javascript:void(0);" className="nav-link" onClick={()=>this.logout()}><b>Sign Out</b></a>
@@ -286,6 +346,12 @@ class HeaderComponent extends Component {
                             </div>
                             <div className="form-group">
                                 <textarea id="description" placeholder="Description" className={!this.state.errDesc ? 'form-control' : 'form-control error-input'} onChange={(e)=>this.fieldChange(e, 'desc')}></textarea>
+                            </div>
+                            <div className="form-group">
+                                <select className={!this.state.catErr ? 'form-control' : 'form-control error-input'} id="cat" value={this.state.categoryVal} onChange={(e)=>this.dropdownChange(e)}>
+                                    <option value="" disabled selected>Select Category</option>
+                                    {categryList}
+                                </select>
                             </div>
                             <div className="form-group">
                                 <input type="number" className="form-control" id="name" placeholder="Cost" className={!this.state.errCost ? 'form-control' : 'form-control error-input'} onChange={(e)=>this.fieldChange(e, 'cost')}/>
