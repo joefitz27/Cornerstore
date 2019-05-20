@@ -63,8 +63,7 @@ class HomeComponent extends Component {
             <div className="container">
                 <div className="col-lg-12">
                     <div className="text-center">
-                        <img src="./images/logo.JPG" height="60px"/>
-                        {/* <img src="./images/title.JPG" width="280px"/> */}
+                        <img src="./images/title.JPG"/>
                     </div>
                 </div>
                 <div className="col-lg-12 text-center">
