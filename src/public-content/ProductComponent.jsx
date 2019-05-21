@@ -117,6 +117,9 @@ class ProductComponent extends Component {
                     <a href="javascript:void(0);" style={{'height' : '170px'}}><img className="card-img-top" height="110%" src={imageUrl} alt="" /></a>
                     <div className="card-body">
                         <h6 className="card-title">
+                            <a href="javascript:void(0);">{data.name}</a>
+                        </h6>
+                        <h6 className="card-title">
                             <a href="javascript:void(0);">{data.description}</a>
                         </h6>
                         <span>${data.cost}</span>

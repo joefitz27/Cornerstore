@@ -33,7 +33,7 @@ class StoreComponent extends Component {
         return <div><br /><br /><br /><br />
            <div className="row">
            <div className="offset-1 col-3">
-                <Link className="btn btn-md bg-yellow" to={localStorage.getItem('productPage') ? 'products' : '/'}><i className="fa fa-arrow-left" aria-hidden="true"></i> Back</Link>
+                <Link className="btn btn-md btn-danger" to={localStorage.getItem('productPage') ? 'products' : '/'}><i className="fa fa-arrow-left" aria-hidden="true"></i> Back</Link>
            </div>
             <div className="col-4">
                 <div className="container admin-height">

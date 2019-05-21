@@ -15,7 +15,7 @@ const customStyles = {
         bottom: 'auto',
         marginRight: '-50%',
         transform: 'translate(-50%, -50%)',
-        backgroundColor : '#17a2b8'
+        backgroundColor : '#e8c905'
     }
 };
 
@@ -333,7 +333,7 @@ class HeaderComponent extends Component {
                             <img src={this.state.viewImage} height="100px" width="120px"/>
                         </div>
                         <div className="col-12"><br/>
-                            <div className="file btn btn-sm btn-info file-div" style={{border : '1px solid black'}}> Select Image
+                            <div className="file btn btn-sm btn-danger file-div" style={{border : '1px solid black'}}> Select Image
                                 <input type='file' className="file-input" id="imageUpload" accept=".png, .jpg, .jpeg" onChange={(e)=>this.changeImage(e)}/>
                             </div>
                             <span className={this.state.errImg ? 'text-danger show' : 'hide'}>Select image</span>

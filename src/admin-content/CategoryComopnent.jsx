@@ -211,7 +211,7 @@ class CategoryComponent extends Component {
                     <h5>Category</h5>
                 </div>
                 <div className="col-2">
-                    <Link className="btn-success btn-md btn" to='/admin-view'>User</Link>
+                    <Link className="btn-danger btn-md btn" to='/admin-view'>User</Link>
                 </div>
             </div>
             <div className="row">
@@ -228,16 +228,16 @@ class CategoryComponent extends Component {
             <div className={this.state.isEdit? 'show' : 'hide'}>
                 <div className="row">
                     <div className="offset-4 col-2">
-                        <button type="button" className="btn btn-warning btn-sm" onClick={()=>this.update()}>Update</button>
+                        <button type="button" className="btn btn-danger btn-sm" onClick={()=>this.update()}>Update</button>
                     </div>
                     <div className="col-2">
-                        <button type="button" className="btn btn-success btn-sm" onClick={()=>this.cancel()}>Cancel</button>
+                        <button type="button" className="btn btn-danger btn-sm" onClick={()=>this.cancel()}>Cancel</button>
                     </div>
                 </div>
             </div>
             <div className={this.state.isEdit? 'row hide' : 'row show'}>
                 <div className="offset-4  col-6">
-                    <button type="button" className="btn btn-success btn-sm" onClick={()=>this.save()}>Save</button>
+                    <button type="button" className="btn btn-danger btn-sm" onClick={()=>this.save()}>Save</button>
                 </div>
             </div>
             <div className="row" className={this.state.categoryList.length==0 ? 'hide' : 'show'}>

@@ -127,7 +127,7 @@ class UserComponent extends Component {
                         <h5>Users</h5>
                     </div>
                     <div className="col-2">
-                        <Link to='/category' className="btn-success btn-md btn">Category</Link>
+                        <Link to='/category' className="btn-danger btn-md btn">Category</Link>
                     </div>
                 </div>
                 <div className="row">
